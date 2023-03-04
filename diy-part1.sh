@@ -24,7 +24,7 @@ git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome package/lu
 git clone --depth 1 https://github.com/iwrt/luci-app-ikoolproxy package/luci-app-ikoolproxy
 git clone --depth 1 https://github.com/destan19/OpenAppFilter package/OpenAppFilter
 # git clone --depth 1 -b lede https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
-
+svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-adguardhome package/luci-app-adguardhome
 
 #添加smartdns
 git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
