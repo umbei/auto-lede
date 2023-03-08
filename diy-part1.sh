@@ -19,6 +19,7 @@ sed -i 's/192.168.1.1/10.0.0.252/g' package/base-files/files/bin/config_generate
 # echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
+echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 # echo 'src-git kenzok8 https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
 git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
 # git clone --depth 1 https://github.com/iwrt/luci-app-ikoolproxy package/luci-app-ikoolproxy
@@ -27,8 +28,8 @@ git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome package/lu
 svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-adguardhome package/luci-app-adguardhome
 
 #添加smartdns
-git clone --depth 1 https://github.com/pymumu/openwrt-smartdns package/smartdns
-git clone --depth 1 https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
+# git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
+# git clone https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 
 # 科学上网插件
 # git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
@@ -37,7 +38,7 @@ git clone --depth 1 https://github.com/pymumu/luci-app-smartdns package/luci-app
 # svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 # svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-passwall package/luci-app-passwall
 # svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
-# svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
+# svn co https://github.com/fw876/helloworld package/luci-app-ssr-plus
 
 # Themes
 # git clone --depth 1 -b 18.06 https://github.com/kiddin9/luci-theme-edge package/luci-theme-edge
