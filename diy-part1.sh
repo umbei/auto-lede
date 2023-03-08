@@ -6,8 +6,8 @@ sed -i 's/192.168.1.1/10.0.0.252/g' package/base-files/files/bin/config_generate
 
 # Clear the login password
 # sed -i "$2y$10$Czru1JJHmsJlSTjbWROSX.GvSqHXELlmiPqsCb15//ALXYeJ4VN76" package/lean/default-settings/files/zzz-default-settings
-sed -i 's/root::0:0:99999:7:::/root:$2y$10$Czru1JJHmsJlSTjbWROSX.GvSqHXELlmiPqsCb15//ALXYeJ4VN76:0:0:99999:7:::/g' /etc/shadow
-sed -i 's/root:::0:99999:7:::/root:$2y$10$Czru1JJHmsJlSTjbWROSX.GvSqHXELlmiPqsCb15//ALXYeJ4VN76:0:0:99999:7:::/g' /etc/shadow
+sed -i 's/root::0:0:99999:7:::/root:$2y$10$Czru1JJHmsJlSTjbWROSX.GvSqHXELlmiPqsCb15//ALXYeJ4VN76:0:0:99999:7:::/g' /package/base-files/files/etc/shadow
+sed -i 's/root:::0:99999:7:::/root:$2y$10$Czru1JJHmsJlSTjbWROSX.GvSqHXELlmiPqsCb15//ALXYeJ4VN76:0:0:99999:7:::/g' /package/base-files/files/etc/shadow
 
 # 移除重复软件包
 # rm -rf feeds/packages/net/mosdns
