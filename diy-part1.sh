@@ -18,7 +18,8 @@ sed -i 's/root:::0:99999:7:::/root:$2y$10$Czru1JJHmsJlSTjbWROSX.GvSqHXELlmiPqsCb
 # rm -rf feeds/luci/applications/luci-app-dockerman
 
 # 添加额外软件包
-# echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+echo 'src-git OpenClash https://github.com/vernesong/OpenClash' >>feeds.conf.default
+echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 # echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
 echo 'src-git helloworld https://github.com/fw876/helloworld' >> feeds.conf.default
 # echo 'src-git kenzok8 https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
