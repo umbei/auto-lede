@@ -70,11 +70,11 @@ jobs:
 
     - name: Update feeds
       run: |
-        cd openwrt && ./scripts/feeds clean
-        cd openwrt && ./scripts/feeds update -a
+       ./scripts/feeds clean
+       ./scripts/feeds update -a
 
     - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
+      run: ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
