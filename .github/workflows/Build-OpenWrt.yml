@@ -58,7 +58,7 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone -b 21.02 --single-branch https://github.com/Lienol/openwrt openwrt
+        git clone https://github.com/umbei/openwrt.git openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: Load custom feeds
