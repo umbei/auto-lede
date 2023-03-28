@@ -9,10 +9,8 @@ sed -i 's/10.0.0.251/10.0.0.101/g' package/base-files/files/bin/config_generate
 
 
 # 添加额外软件包
-echo 'src-git Clash https://github.com/Dreamacro/clash' >>feeds.conf.default
-echo 'src-git OpenClash https://github.com/vernesong/OpenClash' >>feeds.conf.default
-echo 'src-git kenzok8 https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
-echo 'src-git wall https://github.com/kenzok8/wall' >>feeds.conf.default
+src-git kenzo https://github.com/kenzok8/openwrt-packages
+src-git small https://github.com/kenzok8/small
 # echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 # echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
 # echo 'src-git helloworld https://github.com/fw876/helloworld' >> feeds.conf.default
