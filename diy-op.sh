@@ -1,5 +1,5 @@
 ## 修改默认IP
-sed -i 's/10.0.0.251/10.0.0.101/g' package/base-files/files/bin/config_generate
+# sed -i 's/10.0.0.251/10.0.0.101/g' package/base-files/files/bin/config_generate
 
 # Change default shell to zsh
 # sed -i 's/\/bin\/ash/\/usr\/bin\/zsh/g' package/base-files/files/etc/passwd
@@ -9,8 +9,8 @@ sed -i 's/10.0.0.251/10.0.0.101/g' package/base-files/files/bin/config_generate
 
 
 # 添加额外软件包
-src-git kenzo https://github.com/kenzok8/openwrt-packages
-src-git small https://github.com/kenzok8/small
+echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
+echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
 # echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 # echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
 # echo 'src-git helloworld https://github.com/fw876/helloworld' >> feeds.conf.default
