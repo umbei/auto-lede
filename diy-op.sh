@@ -17,6 +17,7 @@ echo 'src-git helloworld https://github.com/fw876/helloworld' >> feeds.conf.defa
 svn co https://github.com/rosywrt/luci-theme-rosy/trunk/luci-theme-rosy package/luci-theme-rosy
 svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-adguardhome package/luci-app-adguardhome
 svn co https://github.com/kenzok8/openwrt-packages/tree/master/adguardhome package/adguardhome
+svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-ikoolproxy package/luci-app-ikoolproxy
 svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-aliddns package/luci-app-aliddns
 svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-passwall package/luci-app-passwall
 svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-passwall2 package/luci-app-passwall2
