@@ -13,7 +13,7 @@ sed -i 's/10.0.0.251/10.0.0.101/g' package/base-files/files/bin/config_generate
 # echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
-echo 'src-git helloworld https://github.com/fw876/helloworld' >> feeds.conf.default
+echo 'src-git helloworld https://github.com/umbei/passwall' >> feeds.conf.default
 svn co https://github.com/rosywrt/luci-theme-rosy/trunk/luci-theme-rosy package/luci-theme-rosy
 svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-adguardhome package/luci-app-adguardhome
 svn co https://github.com/kenzok8/openwrt-packages/tree/master/adguardhome package/adguardhome
@@ -23,6 +23,9 @@ svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-passwall
 svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-passwall2 package/luci-app-passwall2
 git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 git clone https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
+
+# 梯子依赖插件
+echo 'src-git passwall https://github.com/umbei/passwall' >> feeds.conf.default
 
 # 修改版本为编译日期
 # date_version=$(date +"%Y.%m.%d")
