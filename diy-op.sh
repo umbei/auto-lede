@@ -12,17 +12,14 @@ sed -i 's/10.0.0.251/10.0.0.252/g' package/base-files/files/bin/config_generate
 # echo 'src-git kenzo https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
 # echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
 echo 'src-git helloworld https://github.com/umbei/passwall' >> feeds.conf.default
 # svn co https://github.com/rosywrt/luci-theme-rosy/trunk/luci-theme-rosy package/luci-theme-rosy
 # svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-adguardhome package/luci-app-adguardhome
 # svn co https://github.com/kenzok8/openwrt-packages/tree/master/adguardhome package/adguardhome
-git clone --depth 1 https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-ikoolproxy package/luci-app-ikoolproxy
-git clone --depth 1 https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-aliddns package/luci-app-aliddns
-# git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
+
+git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 git clone https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
-git clone --depth 1 https://github.com/iwrt/luci-app-ikoolproxy package/luci-app-ikoolproxy
-# git clone --depth 1 https://github.com/destan19/OpenAppFilter package/OpenAppFilter
+
 
 
 # 梯子依赖插件
