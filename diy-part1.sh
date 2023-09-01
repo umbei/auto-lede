@@ -5,7 +5,7 @@ sed -i 's/10.0.0.253/10.0.0.252/g' package/base-files/files/bin/config_generate
 # sed -i 's/\/bin\/ash/\/usr\/bin\/zsh/g' package/base-files/files/etc/passwd
 
 # Clear the login password
-# sed -i "$2y$10$Czru1JJHmsJlSTjbWROSX.GvSqHXELlmiPqsCb15//ALXYeJ4VN76" package/lean/default-settings/files/zzz-default-settings
+sed -i "/CYXluq4wUazHjmCDBCqXF/d" package/lean/default-settings/files/zzz-default-settings
 
 # 移除重复软件包
 # rm -rf feeds/packages/net/mosdns
