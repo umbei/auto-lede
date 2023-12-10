@@ -16,8 +16,8 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' openwrt/package/lean/default-se
 # rm -rf feeds/luci/applications/luci-app-dockerman
 
 # 添加额外软件包
-svn co https://github.com/kenzok8/small-package/tree/main/luci-app-lucky package/luci-app-lucky
-svn co https://github.com/kenzok8/small-package/tree/main/lucky package/lucky
+svn co https://github.com/kenzok8/small-package/trunk/luci-app-lucky package/luci-app-lucky
+svn co https://github.com/kenzok8/small-package/trunk/lucky package/lucky
 echo 'src-git passwall https://github.com/umbei/passwall' >>feeds.conf.default
 echo 'src-git passwallpackages https://github.com/umbei/openwrt-passwall-packages' >>feeds.conf.default
 # echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
