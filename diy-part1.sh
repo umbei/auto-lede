@@ -1,5 +1,5 @@
 # 修改默认IP
-sed -i 's/10.0.0.253/10.0.0.251/g' package/base-files/files/bin/config_generate
+sed -i 's/10.0.0.253/10.0.0.101/g' package/base-files/files/bin/config_generate
 
 # Change default shell to zsh
 # sed -i 's/\/bin\/ash/\/usr\/bin\/zsh/g' package/base-files/files/etc/passwd
