@@ -1,5 +1,5 @@
 # 修改默认IP
-sed -i 's/10.0.0.253/10.0.0.101/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/10.0.0.101/g' package/base-files/files/bin/config_generate
 
 # Change default shell to zsh
 # sed -i 's/\/bin\/ash/\/usr\/bin\/zsh/g' package/base-files/files/etc/passwd
@@ -16,22 +16,22 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' openwrt/package/lean/default-se
 # rm -rf feeds/luci/applications/luci-app-dockerman
 
 # 添加额外软件包
-svn co https://github.com/kenzok8/small-package/trunk/luci-app-lucky package/luci-app-lucky
-svn co https://github.com/kenzok8/small-package/trunk/lucky package/lucky
+# svn co https://github.com/kenzok8/small-package/trunk/luci-app-lucky package/luci-app-lucky
+# svn co https://github.com/kenzok8/small-package/trunk/lucky package/lucky
 echo 'src-git passwall https://github.com/umbei/passwall' >>feeds.conf.default
 echo 'src-git passwallpackages https://github.com/umbei/openwrt-passwall-packages' >>feeds.conf.default
 # echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
 # echo 'src-git helloworld https://github.com/fw876/helloworld' >> feeds.conf.default
-# echo 'src-git kenzok8 https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
+echo 'src-git kenzok8 https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
 # git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
 # git clone --depth 1 https://github.com/iwrt/luci-app-ikoolproxy package/luci-app-ikoolproxy
 # git clone --depth 1 https://github.com/destan19/OpenAppFilter package/OpenAppFilter
 # git clone --depth 1 -b lede https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 # svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-adguardhome package/luci-app-adguardhome
 
-#添加smartdns
-git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
-git clone https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
+# 添加smartdns
+# git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
+# git clone https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 
 # 科学上网插件
 # git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
