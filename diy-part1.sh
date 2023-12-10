@@ -13,7 +13,7 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/f
 # rm -rf feeds/luci/themes/luci-theme-netgear
 # rm -rf feeds/luci/applications/luci-app-netdata
 # rm -rf feeds/luci/applications/luci-app-wrtbwmon
-# rm -rf feeds/luci/applications/luci-app-dockerman
+rm -rf feeds/luci/applications/luci-app-wechatpush
 
 # 添加额外软件包
 # svn co https://github.com/kenzok8/small-package/trunk/luci-app-lucky package/luci-app-lucky
