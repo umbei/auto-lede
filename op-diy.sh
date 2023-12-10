@@ -14,6 +14,8 @@ git pull
 ./scripts/feeds install -a
 make menuconfig
 
+rm -rf luci-app-wechatpush
+
 
 #CONFIG_PACKAGE_luci-app-passwall=y
 #CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Brook=y
