@@ -18,12 +18,12 @@ rm -rf feeds/luci/applications/luci-app-wechatpush
 # 添加额外软件包
 echo 'src-git passwall https://github.com/umbei/passwall' >>feeds.conf.default
 echo 'src-git passwallpackages https://github.com/umbei/openwrt-passwall-packages' >>feeds.conf.default
-# echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
+echo 'src-git small https://github.com/umbei/ssr-passwall-vssr-bypass' >>feeds.conf.default
 # echo 'src-git helloworld https://github.com/fw876/helloworld' >> feeds.conf.default
 # echo 'src-git kenzok8 https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
 # git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
 # git clone --depth 1 -b lede https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
-  git clone  https://github.com/gdy666/luci-app-lucky.git package/lucky
+  git clone  https://github.com/gdy666/luci-app-lucky package/lucky
 # svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-adguardhome package/luci-app-adguardhome
 
 # 添加smartdns
