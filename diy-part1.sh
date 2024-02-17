@@ -45,7 +45,7 @@ git clone https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 # sed -i 's/echo $h/echo $g/g' package/lean/autocore/files/x86/autocore
 
 # 删除主题强制默认
-find package/luci-theme*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
+# find package/luci-theme*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
