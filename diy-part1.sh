@@ -46,7 +46,7 @@ git clone https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 # git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
 # git clone --depth 1 https://github.com/thinktip/luci-theme-neobird package/luci-theme-neobird
 # git clone --depth 1 https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
-svn co https://github.com/rosywrt/luci-theme-rosy/trunk/luci-theme-rosy package/luci-theme-rosy
+# svn co https://github.com/rosywrt/luci-theme-rosy/trunk/luci-theme-rosy package/luci-theme-rosy
 
 
 # MosDNS
