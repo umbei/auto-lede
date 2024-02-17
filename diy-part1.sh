@@ -1,13 +1,13 @@
-# 修改默认IP
+# 1.修改默认IP
 sed -i 's/192.168.1.1/10.0.0.101/g' package/base-files/files/bin/config_generate
 
-# Change default shell to zsh
+# 2.Change default shell to zsh
 # sed -i 's/\/bin\/ash/\/usr\/bin\/zsh/g' package/base-files/files/etc/passwd
 
-# Clear the login password
+# 3.Clear the login password
 sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/files/zzz-default-settings                                            
 
-# 移除重复软件包
+# 4.移除重复软件包
 # rm -rf feeds/packages/net/mosdns
 # rm -rf feeds/luci/themes/luci-theme-argon
 # rm -rf feeds/luci/themes/luci-theme-netgear
@@ -15,36 +15,37 @@ sed -i 's/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.//g' package/lean/default-settings/f
 # rm -rf feeds/luci/applications/luci-app-wrtbwmon
 rm -rf feeds/luci/applications/luci-app-wechatpush
 
-# 添加额外软件包
-echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-# echo 'src-git passwallpackages https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
-echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
-# echo 'src-git helloworld https://github.com/fw876/helloworld' >> feeds.conf.default
+# 5.添加额外软件包
 # echo 'src-git kenzok8 https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
 echo 'src-git lucky https://github.com/gdy666/luci-app-lucky' >>feeds.conf.default
 # git clone  https://github.com/gdy666/luci-app-lucky package/lucky
-# svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-adguardhome package/luci-app-adguardhome
-
-# 添加smartdns
 git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 git clone https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 
-# 科学上网插件
-# svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-passwall package/luci-app-passwall
+# 6.科学上网
+# 依赖包
+echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
+
+# passwall插件
+echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+# echo 'src-git passwallpackages https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
 # svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
+
+# helloworld插件
+# echo "src-git helloworld https://github.com/fw876/helloworld.git" >> "feeds.conf.default"
 # svn co https://github.com/fw876/helloworld package/luci-app-ssr-plus
 
-# Themes
+# 7.Themes
 # git clone --depth 1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
 # git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
 # svn co https://github.com/rosywrt/luci-theme-rosy/trunk/luci-theme-rosy package/luci-theme-rosy
 
-# 调整 x86 型号只显示 CPU 型号
+# 8.调整 x86 型号只显示 CPU 型号
 # sed -i '/h=${g}.*/d' package/lean/autocore/files/x86/autocore
 # sed -i 's/(dmesg.*/{a}${b}${c}${d}${e}${f}/g' package/lean/autocore/files/x86/autocore
 # sed -i 's/echo $h/echo $g/g' package/lean/autocore/files/x86/autocore
 
-# 删除主题强制默认
+# 9.删除主题强制默认
 # find package/luci-theme*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
 
 ./scripts/feeds update -a
