@@ -20,7 +20,7 @@ rm -rf feeds/luci/applications/luci-app-wechatpush
 echo 'src-git lucky https://github.com/gdy666/luci-app-lucky' >>feeds.conf.default
 # git clone  https://github.com/gdy666/luci-app-lucky package/lucky
 git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
-git clone https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
+git clone https://github.com/pymumu/luci-app-smartdns/tree/lede package/luci-app-smartdns
 
 # 6.科学上网
 # 依赖包
