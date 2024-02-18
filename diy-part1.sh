@@ -20,12 +20,12 @@ rm -rf feeds/luci/applications/luci-app-wechatpush
 echo 'src-git lucky https://github.com/gdy666/luci-app-lucky' >>feeds.conf.default
 # git clone  https://github.com/gdy666/luci-app-lucky package/lucky
 git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
-git clone https://github.com/pymumu/luci-app-smartdns/tree/lede package/luci-app-smartdns
+git clone -b lede https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 
 # 6.科学上网
 # 依赖包
-echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
-# echo 'src-git small https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
+# echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
+echo 'src-git small https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
 
 # passwall插件
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
