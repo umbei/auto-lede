@@ -25,10 +25,10 @@ git clone https://github.com/pymumu/luci-app-smartdns/tree/lede package/luci-app
 # 6.科学上网
 # 依赖包
 echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
+# echo 'src-git small https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
 
 # passwall插件
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-# echo 'src-git passwallpackages https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
 # svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 
 # helloworld插件
