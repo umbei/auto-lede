@@ -21,17 +21,17 @@ git clone https://github.com/sbwml/packages_lang_golang -b 21.x feeds/packages/l
 # echo 'src-git kenzok8 https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
 echo 'src-git lucky https://github.com/gdy666/luci-app-lucky' >>feeds.conf.default
 # git clone  https://github.com/gdy666/luci-app-lucky package/lucky
-git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
-git clone -b lede https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
+# git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
+# git clone -b lede https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 
 # 6.科学上网
 # 依赖包
-echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
-# echo 'src-git small https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
+# echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
+echo 'src-git small https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
 
 # passwall插件
-# echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-# svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
+echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
 
 # helloworld插件
 # echo "src-git helloworld https://github.com/fw876/helloworld.git" >> "feeds.conf.default"
