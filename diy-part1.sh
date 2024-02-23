@@ -26,12 +26,12 @@ echo 'src-git lucky https://github.com/gdy666/luci-app-lucky' >>feeds.conf.defau
 
 # 6.科学上网
 # 依赖包
-# echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
-echo 'src-git small https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
+echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
+# echo 'src-git small https://github.com/xiaorouji/openwrt-passwall-packages' >>feeds.conf.default
 
 # passwall插件
-echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
+# echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+# echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
 
 # helloworld插件
 # echo "src-git helloworld https://github.com/fw876/helloworld.git" >> "feeds.conf.default"
