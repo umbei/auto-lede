@@ -1,3 +1,5 @@
+sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
+
 # 修改默认IP
 sed -i 's/10.0.0.253/10.0.0.252/g' package/base-files/files/bin/config_generate
 
