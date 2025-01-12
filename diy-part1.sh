@@ -20,7 +20,7 @@ git clone https://github.com/sbwml/packages_lang_golang -b 21.x feeds/packages/l
 
 # 5.添加额外软件包
 echo 'src-git kenzok8 https://github.com/kenzok8/openwrt-packages' >>feeds.conf.default
-echo 'src-git lucky https://github.com/gdy666/luci-app-lucky' >>feeds.conf.default
+# echo 'src-git lucky https://github.com/gdy666/luci-app-lucky' >>feeds.conf.default
 # echo 'src-git lua-maxminddb https://github.com/jerrykuku/lua-maxminddb' >>feeds.conf.default
 # git clone  https://github.com/gdy666/luci-app-lucky package/lucky
 # git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
