@@ -30,6 +30,8 @@ env:
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
+  # 可选：强制使用 Node.js 24（如果需要立即切换）
+  # FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
@@ -37,7 +39,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@main
+      uses: actions/checkout@v4
 
     - name: Check Server Performance
       run: |
@@ -72,6 +74,13 @@ jobs:
         libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf \
         python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion \
         swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+        # 确保 qemu-img 可用（解决 VMDK/VDI 构建问题）
+        sudo apt install -y qemu-utils
+        # 验证 qemu-img 安装
+        if ! which qemu-img; then
+          echo "警告: qemu-img 未找到，尝试重新安装..."
+          sudo apt install --reinstall -y qemu-utils
+        fi
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo apt-get install clang
@@ -80,6 +89,7 @@ jobs:
         sudo chown $USER:$GROUPS /workdir
         gcc --version
         g++ --version
+        qemu-img --version  # 显示 qemu-img 版本信息
         
     - name: Clone source code
       working-directory: /workdir
@@ -96,6 +106,16 @@ jobs:
         ln -sf /mnt/openwrt/dl openwrt/dl
         ln -sf /mnt/openwrt/bin openwrt/bin
         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+        
+    - name: Cache OpenWrt build
+      uses: actions/cache@v4
+      with:
+        path: |
+          /mnt/openwrt/dl
+          /mnt/openwrt/staging_dir
+        key: ${{ runner.os }}-openwrt-${{ hashFiles('openwrt/.config') }}
+        restore-keys: |
+          ${{ runner.os }}-openwrt-
         
     - name: Load custom feeds
       run: |
@@ -150,7 +170,7 @@ jobs:
       run: df -hT
 
     - name: Upload bin directory
-      uses: actions/upload-artifact@main
+      uses: actions/upload-artifact@v4
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
@@ -166,14 +186,14 @@ jobs:
         echo "status=success" >>$GITHUB_OUTPUT
 
     - name: Upload firmware directory
-      uses: actions/upload-artifact@main
+      uses: actions/upload-artifact@v4
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -183,16 +203,16 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
+      uses: GitRML/delete-workflow-runs@v1.0.2
       with:
         retain_days: 1
         keep_minimum_runs: 3
 
     - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@master
+      uses: dev-drprasad/delete-older-releases@v0.3.4
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 3
         delete_tags: true
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
