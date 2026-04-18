@@ -49,13 +49,13 @@ jobs:
         echo "分配的服务器性能有限，若选择的插件过多，务必注意CPU性能！"
         echo -e "已知CPU型号（降序）：8370C，8272CL，8171M，E5-2673 \n"
         echo "--------------------------CPU信息--------------------------"
-        echo "CPU物理数量：$(cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc-l)"
+        echo "CPU物理数量：$(cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l)"
         echo -e "CPU核心信息：$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
         echo "--------------------------内存信息--------------------------"
         echo "已安装内存详细信息："
         echo -e "$(sudo lshw -short -C memory | grep GiB) \n"
         echo "--------------------------硬盘信息--------------------------"
-        echo "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc-l)" && df -hT
+        echo "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l)" && df -hT
 
     - name: Initialization environment
       env:
@@ -76,8 +76,13 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-        qemu-img --version
+        
+        # 确保 qemu-img 可用并创建符号链接
         which qemu-img
+        qemu-img --version
+        sudo ln -sf $(which qemu-img) /usr/local/bin/qemu-img 2>/dev/null || true
+        echo "/usr/bin" >> $GITHUB_PATH
+        echo "/usr/local/bin" >> $GITHUB_PATH
 
     - name: Clone source code
       working-directory: /workdir
@@ -141,17 +146,42 @@ jobs:
         make download -j8
         find dl -size -1024c -exec rm -f {} \;
 
+    - name: Fix qemu-img for build
+      run: |
+        # 确保 qemu-img 可用（修复编译时找不到的问题）
+        sudo apt update
+        sudo apt install -y qemu-utils
+        sudo ln -sf /usr/bin/qemu-img /usr/local/bin/qemu-img
+        # 验证
+        echo "qemu-img location:"
+        which qemu-img
+        ls -la /usr/bin/qemu-img
+        /usr/bin/qemu-img --version
+        # 设置环境变量
+        echo "PATH=/usr/bin:/usr/local/bin:$PATH" >> $GITHUB_ENV
+        echo "QEMU_IMG=/usr/bin/qemu-img" >> $GITHUB_ENV
+
     - name: Compile the firmware
       id: compile
       run: |
         cd openwrt
-        # 关键修复：确保 qemu-img 在编译时能找到
-        export PATH=$PATH:/usr/bin
-        which qemu-img
+        # 确保 PATH 包含 qemu-img
+        export PATH=/usr/bin:/usr/local/bin:$PATH
+        
+        # 再次验证 qemu-img 可用
+        if ! command -v qemu-img &> /dev/null; then
+          echo "ERROR: qemu-img still not found!"
+          exit 1
+        fi
+        echo "Using qemu-img: $(which qemu-img)"
+        
         # 清理 tmp 避免旧错误
         rm -rf tmp/
+        
         echo -e "$(nproc) thread compile"
+        # 先尝试全速编译，失败则单线程详细输出
         make -j$(nproc) || make -j1 V=s
+        
         echo "status=success" >> $GITHUB_OUTPUT
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
