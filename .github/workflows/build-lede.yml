@@ -39,50 +39,20 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Check Server Performance
-      run: |
-        sudo rm -rf /usr/share/dotnet
-        sudo rm -rf /opt/ghc
-        sudo rm -rf "/usr/local/share/boost"
-        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-        echo "警告⚠"
-        echo "分配的服务器性能有限，若选择的插件过多，务必注意CPU性能！"
-        echo -e "已知CPU型号（降序）：8370C，8272CL，8171M，E5-2673 \n"
-        echo "--------------------------CPU信息--------------------------"
-        echo "CPU物理数量：$(cat /proc/cpuinfo | grep "physical id" | sort | uniq | wc -l)"
-        echo -e "CPU核心信息：$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
-        echo "--------------------------内存信息--------------------------"
-        echo "已安装内存详细信息："
-        echo -e "$(sudo lshw -short -C memory | grep GiB) \n"
-        echo "--------------------------硬盘信息--------------------------"
-        echo "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l)" && df -hT
-
+    
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo apt update -y
         sudo apt full-upgrade -y
         sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
         bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gcc-multilib g++-multilib gettext \
         genisoimage git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev \
         libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev \
-        libreadline-dev libssl-dev libtool llvm lrzsz msmtp ninja-build p7zip p7zip-full patch pkgconf \
+        libreadline-dev libssl-dev libtool llvm lrzsz libnsl-dev ninja-build p7zip p7zip-full patch pkgconf \
         python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion \
         swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
-        sudo -E apt-get -qq autoremove --purge
-        sudo -E apt-get -qq clean
-        sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
-        
-        # 确保 qemu-img 可用并创建符号链接
-        which qemu-img
-        qemu-img --version
-        sudo ln -sf $(which qemu-img) /usr/local/bin/qemu-img 2>/dev/null || true
-        echo "/usr/bin" >> $GITHUB_PATH
-        echo "/usr/local/bin" >> $GITHUB_PATH
 
     - name: Clone source code
       working-directory: /workdir
@@ -146,34 +116,10 @@ jobs:
         make download -j8
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Fix qemu-img for build
-      run: |
-        # 确保 qemu-img 可用（修复编译时找不到的问题）
-        sudo apt update
-        sudo apt install -y qemu-utils
-        sudo ln -sf /usr/bin/qemu-img /usr/local/bin/qemu-img
-        # 验证
-        echo "qemu-img location:"
-        which qemu-img
-        ls -la /usr/bin/qemu-img
-        /usr/bin/qemu-img --version
-        # 设置环境变量
-        echo "PATH=/usr/bin:/usr/local/bin:$PATH" >> $GITHUB_ENV
-        echo "QEMU_IMG=/usr/bin/qemu-img" >> $GITHUB_ENV
-
     - name: Compile the firmware
       id: compile
       run: |
         cd openwrt
-        # 确保 PATH 包含 qemu-img
-        export PATH=/usr/bin:/usr/local/bin:$PATH
-        
-        # 再次验证 qemu-img 可用
-        if ! command -v qemu-img &> /dev/null; then
-          echo "ERROR: qemu-img still not found!"
-          exit 1
-        fi
-        echo "Using qemu-img: $(which qemu-img)"
         
         # 清理 tmp 避免旧错误
         rm -rf tmp/
