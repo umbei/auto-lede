@@ -39,7 +39,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -55,11 +54,9 @@ jobs:
         swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
 
     - name: Clone source code
-      working-directory: /workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: Free up disk space
       run: |
@@ -95,7 +92,7 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        [ -e files ] && mv files openwrt/files
+        [ -d files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
@@ -129,8 +126,20 @@ jobs:
         make -j$(nproc) || make -j1 V=s
         
         echo "status=success" >> $GITHUB_OUTPUT
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
+        
+        # 提取设备名称（兼容多种配置）
+        BOARD=$(grep '^CONFIG_TARGET_BOARD=' .config | cut -d'=' -f2 | tr -d '"')
+        SUBTARGET=$(grep '^CONFIG_TARGET_SUBTARGET=' .config | cut -d'=' -f2 | tr -d '"')
+        DEVICE=$(grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/')
+        
+        if [ -n "$DEVICE" ]; then
+          DEVICE_NAME="_${BOARD}_${SUBTARGET}_${DEVICE}"
+        elif [ -n "$BOARD" ]; then
+          DEVICE_NAME="_${BOARD}_${SUBTARGET}"
+        else
+          DEVICE_NAME=""
+        fi
+        echo "DEVICE_NAME=$DEVICE_NAME" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
 
     - name: Check space usage
@@ -148,7 +157,14 @@ jobs:
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd openwrt/bin/targets/*/*
+        cd openwrt/bin/targets
+        # 查找唯一的固件输出目录（避免通配符匹配多个）
+        TARGET_DIR=$(find . -mindepth 2 -maxdepth 2 -type d | head -1)
+        if [ -z "$TARGET_DIR" ]; then
+          echo "No target directory found!"
+          exit 1
+        fi
+        cd "$TARGET_DIR"
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
