@@ -4,7 +4,7 @@
 # 源码仓库: coolsnowwolf/lede
 #
 
-name: Build-OpenWrt
+name: build_x86
 
 # 触发方式：手动触发为主，也可按需添加定时或代码推送触发
 on:
