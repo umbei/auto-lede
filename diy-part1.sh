@@ -52,23 +52,5 @@ echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
 # 9.删除主题强制默认
 # find package/luci-theme*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
 
-#!/bin/bash
-set -e
-echo "===== Download OpenClash ====="
-cd openwrt
-# 清理旧文件
-rm -rf package/luci-app-openclash
-# ghproxy加速克隆，防止拉取超时
-git clone https://mirror.ghproxy.com/https://github.com/vernesong/OpenClash.git package/luci-app-openclash
-
-# 进入插件目录下载Meta内核（必须，否则网页缺内核）
-cd package/luci-app-openclash
-chmod +x download.sh
-# 修改download.sh里的下载链接为ghproxy加速
-sed -i 's|https://github.com|https://mirror.ghproxy.com/https://github.com|g' download.sh
-./download.sh
-cd ../../
-echo "===== OpenClash ready ====="
-
 ./scripts/feeds update -a
 ./scripts/feeds install -a
