@@ -52,5 +52,16 @@ echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
 # 9.删除主题强制默认
 # find package/luci-theme*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
 
+# 拉取 OpenClash 源码
+mkdir -p package/others/openclash
+cd package/others/openclash
+git init
+git remote add origin https://github.com/vernesong/OpenClash.git
+git config core.sparsecheckout true
+echo "luci-app-openclash" >> .git/info/sparse-checkout
+git pull --depth 1 origin master
+git branch --set-upstream-to=origin/master master
+cd ../../..
+
 ./scripts/feeds update -a
 ./scripts/feeds install -a
